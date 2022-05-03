@@ -1,12 +1,14 @@
 import torch
 import torch.nn as nn
 from torchvision.models.utils import load_state_dict_from_url
-
+from torch.nn import init
+import torch.nn.functional as F
+from torch.optim import lr_scheduler
 
 class _ResNet_(torch.nn.Module):
     def __init__(self, input_nc, output_nc,
                  resnet_stages_num=5, backbone='resnet18',
-                 output_sigmoid=False, if_upsample_2x=True):
+                 output_sigmoid=False, if_upsample_2x=False):
         """
         In the constructor we instantiate two nn.Linear modules and assign them as
         member variables.
