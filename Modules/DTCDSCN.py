@@ -305,7 +305,7 @@ class CDNet_model(nn.Module):
         output = []
         output.append(out)
 
-        return output
+        return output[-1]
 
 
 
