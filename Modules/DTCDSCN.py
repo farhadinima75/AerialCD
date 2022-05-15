@@ -309,8 +309,8 @@ class CDNet_model(nn.Module):
 
 
 
-def CDNet34(in_channels, **kwargs):
+def CDNet34(InCH=3, OutCH=2, **kwargs):
 
-    model = CDNet_model(in_channels, SEBasicBlock, [3, 4, 6, 3], **kwargs)
+    model = CDNet_model(InCH, SEBasicBlock, [3, 4, 6, 3], num_classes=OutCH, **kwargs)
 
     return model
