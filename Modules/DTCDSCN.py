@@ -1,4 +1,8 @@
-#from https://github.com/fitzpchao/DTCDSCN
+#Config file to run: "Building Change Detection for Remote Sensing Images Using a Dual Task Constrained Deep Siamese Convolutional Network Model" (Concatenation Version)
+#Credit:
+#The implementation of the paper"Building Change Detection for Remote Sensing Images Using a Dual Task Constrained Deep Siamese Convolutional Network Model "
+        #Code copied from: https://github.com/fitzpchao/DTCDSCN
+
 import math
 import torch
 import torch.nn as nn
