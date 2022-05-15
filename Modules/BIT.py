@@ -763,7 +763,7 @@ class BASE_Transformer(_ResNet):
             x = self.sigmoid(x)
         outputs = []
         outputs.append(x)
-        return outputs
+        return outputs[-1]
  
 def BIT(InCH=3, OutCH=2):
   net = BASE_Transformer(input_nc=InCH, output_nc=OutCH, token_len=4, resnet_stages_num=4,
