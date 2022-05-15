@@ -181,3 +181,6 @@ class SiamUnet_diff(nn.Module):
         output.append(x11d)
 
         return output
+
+def SiamUnet_Diff(InCH=3, OutCH=2):
+  return SiamUnet_diff(input_nbr=InCH, label_nbr=OutCH)
