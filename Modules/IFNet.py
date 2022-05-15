@@ -56,10 +56,12 @@ def conv2d_bn(in_channels, out_channels):
     )
 
 class DSIFN(nn.Module):
-    def __init__(self, model_A, model_B):
+    def __init__(self, InCH=3, OutCH=2):
         super().__init__()
-        self.t1_base = model_A
-        self.t2_base = model_B
+        self.InCH = InCH
+        self.OutCH = OutCH
+        self.t1_base = vgg16_base()
+        self.t2_base = vgg16_base()
         self.sa1 = SpatialAttention()
         self.sa2= SpatialAttention()
         self.sa3 = SpatialAttention()
@@ -74,7 +76,7 @@ class DSIFN(nn.Module):
         self.o1_conv1 = conv2d_bn(1024, 512)
         self.o1_conv2 = conv2d_bn(512, 512)
         self.bn_sa1 = nn.BatchNorm2d(512)
-        self.o1_conv3 = nn.Conv2d(512, 1, 1)
+        self.o1_conv3 = nn.Conv2d(512, self.OutCH, 1)
         self.trans_conv1 = nn.ConvTranspose2d(512, 512, kernel_size=2, stride=2)
 
         # branch 2
@@ -84,7 +86,7 @@ class DSIFN(nn.Module):
         self.o2_conv2 = conv2d_bn(512, 256)
         self.o2_conv3 = conv2d_bn(256, 256)
         self.bn_sa2 = nn.BatchNorm2d(256)
-        self.o2_conv4 = nn.Conv2d(256, 1, 1)
+        self.o2_conv4 = nn.Conv2d(256, self.OutCH, 1)
         self.trans_conv2 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2)
 
         # branch 3
@@ -93,7 +95,7 @@ class DSIFN(nn.Module):
         self.o3_conv2 = conv2d_bn(256, 128)
         self.o3_conv3 = conv2d_bn(128, 128)
         self.bn_sa3 = nn.BatchNorm2d(128)
-        self.o3_conv4 = nn.Conv2d(128, 1, 1)
+        self.o3_conv4 = nn.Conv2d(128, self.OutCH, 1)
         self.trans_conv3 = nn.ConvTranspose2d(128, 128, kernel_size=2, stride=2)
 
         # branch 4
@@ -102,7 +104,7 @@ class DSIFN(nn.Module):
         self.o4_conv2 = conv2d_bn(128, 64)
         self.o4_conv3 = conv2d_bn(64, 64)
         self.bn_sa4 = nn.BatchNorm2d(64)
-        self.o4_conv4 = nn.Conv2d(64, 1, 1)
+        self.o4_conv4 = nn.Conv2d(64, self.OutCH, 1)
         self.trans_conv4 = nn.ConvTranspose2d(64, 64, kernel_size=2, stride=2)
 
         # branch 5
@@ -111,7 +113,7 @@ class DSIFN(nn.Module):
         self.o5_conv2 = conv2d_bn(64, 32)
         self.o5_conv3 = conv2d_bn(32, 16)
         self.bn_sa5 = nn.BatchNorm2d(16)
-        self.o5_conv4 = nn.Conv2d(16, 1, 1)
+        self.o5_conv4 = nn.Conv2d(16, self.OutCH, 1)
 
     def forward(self,t1_input,t2_input):
         t1_list = self.t1_base(t1_input)
@@ -178,3 +180,6 @@ class DSIFN(nn.Module):
         branch_5_out = self.sigmoid(self.o5_conv4(x))
 
         return branch_1_out,branch_2_out,branch_3_out,branch_4_out,branch_5_out
+
+def IFNet(InCH=3, OutCH=2):
+  return DSIFN(InCH=InCH, OutCH=OutCH)
