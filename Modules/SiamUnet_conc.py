@@ -182,4 +182,5 @@ class SiamUnet_conc(nn.Module):
 
         return output
 
-    
+def SiamUnet_concate(InCH=3, OutCH=2):
+  return SiamUnet_conc(input_nbr=InCH, label_nbr=OutCH)
