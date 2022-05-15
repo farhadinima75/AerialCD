@@ -309,7 +309,7 @@ class CDNet_model(nn.Module):
 
 
 
-def CDNet34(InCH=3, OutCH=2, **kwargs):
+def DTCDSCN(InCH=3, OutCH=2, **kwargs):
 
     model = CDNet_model(InCH, SEBasicBlock, [3, 4, 6, 3], num_classes=OutCH, **kwargs)
 
