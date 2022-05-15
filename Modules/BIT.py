@@ -582,7 +582,7 @@ class BASE_Transformer(ResNet):
         outputs = []
         outputs.append(x)
         return outputs
-
+ 
 def BIT():
   net = BASE_Transformer(input_nc=3, output_nc=2, token_len=4, resnet_stages_num=4,
                          with_pos='learned', enc_depth=1, dec_depth=8, decoder_dim_head=8)
