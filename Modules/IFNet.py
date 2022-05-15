@@ -179,7 +179,7 @@ class DSIFN(nn.Module):
 
         branch_5_out = self.sigmoid(self.o5_conv4(x))
 
-        return branch_1_out,branch_2_out,branch_3_out,branch_4_out,branch_5_out
+        return branch_5_out
 
 def IFNet(InCH=3, OutCH=2):
   return DSIFN(InCH=InCH, OutCH=OutCH)
