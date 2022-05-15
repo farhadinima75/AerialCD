@@ -130,7 +130,7 @@ class Siam_NestedUNet_Conc(nn.Module):
         output3 = self.final3(x0_3)
         output4 = self.final4(x0_4)
         output = self.conv_final(torch.cat([output1, output2, output3, output4], 1))
-        return (output1, output2, output3, output4, output)
+        return output
 
 def SNUNet(InCH=3, OutCH=2):
   return Siam_NestedUNet_Conc(in_ch=InCH, out_ch=OutCH)
