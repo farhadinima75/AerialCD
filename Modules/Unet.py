@@ -153,7 +153,7 @@ class Unet(nn.Module):
         output = []
         output.append(x11d)
 
-        return output
+        return output[-1]
 
 def UNet(InCH=3, OutCH=2):
   return Unet(input_nbr=InCH, label_nbr=OutCH)
