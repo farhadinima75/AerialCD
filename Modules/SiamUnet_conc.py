@@ -180,7 +180,7 @@ class SiamUnet_conc(nn.Module):
         output = []
         output.append(x11d)
 
-        return output
+        return output[-1]
 
 def SiamUnet_Conc(InCH=3, OutCH=2):
   return SiamUnet_conc(input_nbr=InCH, label_nbr=OutCH)
