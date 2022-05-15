@@ -155,4 +155,5 @@ class Unet(nn.Module):
 
         return output
 
-    
+def UNet(InCH=3, OutCH=2):
+  return Unet(input_nbr=InCH, label_nbr=OutCH)
