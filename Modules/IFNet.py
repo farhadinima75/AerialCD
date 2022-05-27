@@ -6,9 +6,11 @@ from torchvision.models import vgg16
 import numpy as np
 
 class vgg16_base(nn.Module):
-    def __init__(self):
+    def __init__(self, InCH=3):
         super(vgg16_base,self).__init__()
         features = list(vgg16(pretrained=True).features)[:30]
+        if InCH != 3:
+          features[0] = nn.Conv2d(InCH, 64, kernel_size=(3, 3), padding=(1, 1), stride=(1, 1))
         self.features = nn.ModuleList(features).eval()
 
     def forward(self,x):
@@ -60,8 +62,8 @@ class DSIFN(nn.Module):
         super().__init__()
         self.InCH = InCH
         self.OutCH = OutCH
-        self.t1_base = vgg16_base()
-        self.t2_base = vgg16_base()
+        self.t1_base = vgg16_base(InCH=InCH)
+        self.t2_base = vgg16_base(InCH=InCH)
         self.sa1 = SpatialAttention()
         self.sa2= SpatialAttention()
         self.sa3 = SpatialAttention()
