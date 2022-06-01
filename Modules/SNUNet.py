@@ -47,7 +47,7 @@ class Siam_NestedUNet_Conc(nn.Module):
     def __init__(self, in_ch=3, out_ch=2):
         super(Siam_NestedUNet_Conc, self).__init__()
         torch.nn.Module.dump_patches = True
-        n1 = 32     # the initial number of channels of feature map
+        n1 = 16     # the initial number of channels of feature map
         filters = [n1, n1 * 2, n1 * 4, n1 * 8, n1 * 16]
 
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
