@@ -769,5 +769,5 @@ class BASE_Transformer(_ResNet):
  
 def BIT(InCH=3, OutCH=2):
   net = BASE_Transformer(input_nc=InCH, output_nc=OutCH, token_len=4, resnet_stages_num=4,
-                         with_pos='learned', enc_depth=1, dec_depth=8, decoder_dim_head=8)
+                         with_pos='learned', enc_depth=1, dec_depth=8)
   return net
