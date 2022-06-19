@@ -58,12 +58,12 @@ def conv2d_bn(in_channels, out_channels):
     )
 
 class DSIFN(nn.Module):
-    def __init__(self, InCH=3, OutCH=2):
+    def __init__(self, ModelA, ModelB, InCH=3, OutCH=2):
         super().__init__()
         self.InCH = InCH
         self.OutCH = OutCH
-        self.t1_base = vgg16_base(InCH=InCH)
-        self.t2_base = vgg16_base(InCH=InCH)
+        self.t1_base = ModelA
+        self.t2_base = ModelB
         self.sa1 = SpatialAttention()
         self.sa2= SpatialAttention()
         self.sa3 = SpatialAttention()
@@ -184,4 +184,10 @@ class DSIFN(nn.Module):
         return branch_5_out
 
 def IFNet(InCH=3, OutCH=2):
-  return DSIFN(InCH=InCH, OutCH=OutCH)
+  ModelA = vgg16_base(InCH=InCH)
+  ModelB = vgg16_base(InCH=InCH)
+  for param in ModelA.parameters():
+    param.requires_grad = False
+  for param in ModelB.parameters():
+    param.requires_grad = False
+  return DSIFN(ModelA, ModelB, InCH=InCH, OutCH=OutCH)
